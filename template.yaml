@@ -76,55 +76,6 @@ Resources:
                 Resource: !Ref WarningTopic
 
 #lambda function
-  # SubscriptionLambdaFunction:
-  #     Type: AWS::Lambda::Function
-  #     Properties:
-  #       FunctionName: CostAlertFunction
-  #       Handler: alert.lambda_handler    
-  #       Role: !GetAtt LambdaExecutionRole.Arn
-  #       Runtime: python3.8
-  #       Timeout: 120
-  #       MemorySize: 1024
-  #       Code:
-  #         S3Bucket: cost-alert-s3-bucket
-  #         S3Key: alert.zip     
-
-  # SubscriptionLambdaFunction:
-  #   Type: AWS::Lambda::Function
-  #   Properties:
-  #     Handler: index.handler
-  #     Role: !GetAtt LambdaExecutionRole.Arn
-  #     Code:
-  #       ZipFile: |
-  #         import json
-  #         import boto3
-  #         import cfnresponse
-          
-  #         def handler(event, context):
-  #             sns = boto3.client('sns')
-  #             response_data = {}
-  #             try:
-  #                 emails = event['ResourceProperties']['Emails']
-  #                 topic_arn = event['ResourceProperties']['TopicArn']
-                  
-  #                 if event['RequestType'] == 'Delete':
-  #                     # we can handle delete event 
-  #                     pass
-  #                 if event['RequestType'] == 'Update':
-  #                     # we can handle update event 
-  #                     pass
-  #                 else:
-  #                     for email in emails:
-  #                         sns.subscribe(TopicArn=topic_arn, Protocol='email', Endpoint=email)
-                  
-  #                 cfnresponse.send(event, context, cfnresponse.SUCCESS, response_data)
-  #             except Exception as e:
-  #                 print(e)
-  #                 cfnresponse.send(event, context, cfnresponse.FAILED, response_data)
-  #     Runtime: python3.8
-  #     Timeout: 120
-
-
   SubscriptionLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -135,13 +86,6 @@ Resources:
       - x86_64
       Runtime: python3.12
       Timeout: 120
-
-  # EmailSubscriptionResource:
-  #   Type: Custom::EmailSubscription
-  #   Properties:
-  #     ServiceToken: !GetAtt SubscriptionLambdaFunction.Arn
-  #     Emails: !Ref Email
-  #     TopicArn: !Ref WarningTopic
 
   EmailSubscriptionResource:
     Type: Custom::EmailSubscription 
