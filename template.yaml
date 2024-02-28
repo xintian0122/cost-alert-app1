@@ -13,7 +13,7 @@ Parameters:
     Default: 100
   Email:  #alert recipient array, email@ascendingdc.com.email2@ascendingdc.com
     Type: CommaDelimitedList 
-    Default: "cynthia.zhang@ascendingdc.com, xintian0122@gmail.com"  #put your recipient email here
+    Default: "cynthia.zhang@ascendingdc.com, xintian0122@gmail.com, xzhan271@syr.edu"  #put your recipient email here
     Description: Email address to deliver notifications to
 
 Resources:
